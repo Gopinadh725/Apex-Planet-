@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Complete Web Project</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+    }
+
+    nav {
+      width: 220px;
+      background: linear-gradient(180deg, #4a148c, #7b1fa2);
+      color: white;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    nav h2 {
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    header {
+      background: #a87d2de3;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    section {
+      display: none;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    }
+
+    section.active {
+      display: block;
+    }
+
+    input, button, select {
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #ee0c0c;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      background-color: #f3e5f5;
+      border-radius: 6px;
+    }
+
+    ul li button {
+      margin-left: 1rem;
+      background: #ef5350;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    ul li button:hover {
+      background: #c62828;
+    }
+
+    #productList {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    #productList div {
+      background: #e8f5e9;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #35a027;
+      color: white;
+      margin-top: auto;
+    }
+
+    #about    { background-color: #f3e5f5; }
+    #projects { background-color: #e0f2f7; }
+    #todo     { background-color: #fffde7; }
+    #products { background-color: #e8f5e9; }
+    #contact  { background-color: #e3f2fd; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h2>MY MENU</h2>
+    <a onclick="showPage('about')">About Me</a>
+    <a onclick="showPage('projects')">Projects</a>
+    <a onclick="showPage('todo')">To-Do App</a>
+    <a onclick="showPage('products')">Product Page</a>
+    <a onclick="showPage('contact')">Contact</a>
+  </nav>
+
+  <main>
+    <header>
+      <h1>MY PORTFOLIO</h1>
+    </header>
+
+    <section id="about" class="active">
+      <h2>About Me</h2>
+      <p>Welcome to my Portfolio! I'm BETHAMSETTY GOPINADH currently pursuing Masters of Computer Applications in Aditya University.
+        I enjoy creating responsive, user-friendly websites using HTML, CSS, and JavaScript. My aim is to become a full-stack developer and build impactful digital solutions.</p>
+    </section>
+
+    <section id="projects">
+      <h2>My Projects</h2>
+      <ul>
+        <li>Simple Webpage using HTML, CSS, and JavaScript</li>
+        <li>Contact Form with Validation and Responsive Layout</li>
+        <li>Personal Portfolio Website</li>
+        <li>To-Do List App with Local Storage</li>
+        <li>Product Filter and Sort Page</li>
+      </ul>
+    </section>
+
+    <section id="todo">
+      <h2>To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Enter task" />
+      <button onclick="addTask()">Add Task</button>
+      <ul id="taskList"></ul>
+    </section>
+
+    <section id="products">
+      <h2>Products</h2>
+      <select id="filterCategory">
+        <option value="">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="fashion">Fashion</option>
+        <option value="groceries">Groceries</option>
+        <option value="decor">Home Decor</option>
+        <option value="accessories">Accessories</option>
+        <option value="books">Books</option>
+      </select>
+
+      <select id="sortBy">
+        <option value="default">Sort by</option>
+        <option value="price">Price</option>
+        <option value="rating">Rating</option>
+      </select>
+
+      <div id="productList"></div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <p><strong>Email:</strong> <a href="mailto:gopinadh@gmail.com">bethamsettygopinadh69@gmail.com</a></p>
+      <p><strong>Phone:</strong> +91-9963112307 </p>
+      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/gopinadh725/" target="_blank">https://www.linkedin.com/in/gopinadh725/</a></p>
+    </section>
+
+    <footer>
+      &copy; 2025 @Gopinadh. All rights reserved.
+    </footer>
+  </main>
+
+  <script>
+    
+     function showPage(pageId) {
+    document.querySelectorAll("section").forEach(sec => {
+      sec.classList.remove("active");
+    });
+    document.getElementById(pageId).classList.add("active");
+  }
+
+  
+  const taskInput = document.getElementById("taskInput");
+  const taskList = document.getElementById("taskList");
+
+  function loadTasks() {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  taskList.innerHTML = "";
+  tasks.forEach((task, index) => {
+    const li = document.createElement("li");
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+    li.style.padding = "0.5rem";
+    li.style.backgroundColor = "#f3e5f5";
+    li.style.borderRadius = "6px";
+    li.style.marginBottom = "0.5rem";
+
+    
+    const taskText = document.createElement("span");
+    taskText.textContent = task;
+    taskText.style.flex = "1";
+
+    
+    const buttonsDiv = document.createElement("div");
+    buttonsDiv.style.display = "flex";
+    buttonsDiv.style.gap = "0.5rem";
+
+    
+    const upBtn = document.createElement("button");
+    upBtn.textContent = "↑";
+    upBtn.onclick = () => moveTaskUp(index);
+
+    
+    const downBtn = document.createElement("button");
+    downBtn.textContent = "↓";
+    downBtn.onclick = () => moveTaskDown(index);
+
+    
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "Remove";
+    removeBtn.style.background = "#ef5350";
+    removeBtn.style.color = "white";
+    removeBtn.style.border = "none";
+    removeBtn.style.padding = "0.3rem 0.6rem";
+    removeBtn.style.borderRadius = "4px";
+    removeBtn.style.cursor = "pointer";
+    removeBtn.onclick = () => removeTask(index);
+
+    removeBtn.onmouseover = () => removeBtn.style.background = "#c62828";
+    removeBtn.onmouseout = () => removeBtn.style.background = "#ef5350";
+
+    buttonsDiv.appendChild(upBtn);
+    buttonsDiv.appendChild(downBtn);
+    buttonsDiv.appendChild(removeBtn);
+
+    
+    li.appendChild(taskText);
+    li.appendChild(buttonsDiv);
+    taskList.appendChild(li);
+  });
+}
+
+
+  function addTask() {
+    const task = taskInput.value.trim();
+    if (task) {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      tasks.push(task);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      taskInput.value = "";
+      loadTasks();
+    }
+  }
+
+  function removeTask(index) {
+    const tasks = JSON.parse(localStorage.getItem("tasks"));
+    tasks.splice(index, 1);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    loadTasks();
+  }
+
+  function moveTaskUp(index) {
+    const tasks = JSON.parse(localStorage.getItem("tasks"));
+    if (index > 0) {
+      [tasks[index - 1], tasks[index]] = [tasks[index], tasks[index - 1]];
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      loadTasks();
+    }
+  }
+
+  function moveTaskDown(index) {
+    const tasks = JSON.parse(localStorage.getItem("tasks"));
+    if (index < tasks.length - 1) {
+      [tasks[index + 1], tasks[index]] = [tasks[index], tasks[index + 1]];
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      loadTasks();
+    }
+  }
+
+    // Product List
+    const products = [
+  // Electronics
+  { name: "Neon Pulse Smartwatch", category: "electronics", price: 32000, rating: 4.6 },
+  { name: "TitanEdge Ultrabook", category: "electronics", price: 85000, rating: 4.9 },
+  { name: "EchoPods Wireless", category: "electronics", price: 2500, rating: 4.4 },
+  { name: "SkyRacer Drone V2", category: "electronics", price: 15000, rating: 4.7 },
+
+  // Fashion
+  { name: "RidgeLine Denim Jacket", category: "fashion", price: 2500, rating: 4.2 },
+  { name: "MetroWave Sneakers", category: "fashion", price: 4000, rating: 4.3 },
+  { name: "Velvet Breeze Scarf", category: "fashion", price: 800, rating: 4.0 },
+  { name: "NatureWear Cotton Tee", category: "fashion", price: 950, rating: 4.1 },
+
+  // Groceries
+  { name: "Heritage Basmati Rice (5kg)", category: "groceries", price: 450, rating: 4.7 },
+  { name: "BrewCraft Premium Coffee", category: "groceries", price: 300, rating: 4.6 },
+  { name: "Highland Fresh Apples (1kg)", category: "groceries", price: 180, rating: 4.8 },
+  { name: "Golden Crust Bread", category: "groceries", price: 70, rating: 4.3 },
+
+  // Decor
+  { name: "Serenity Zen Kit", category: "decor", price: 1800, rating: 4.5 },
+  { name: "Nomad Spirit Tapestry", category: "decor", price: 2800, rating: 4.2 },
+  { name: "Modernist Ceramic Vase", category: "decor", price: 1000, rating: 4.0 },
+  { name: "AuraGlow String Lights (10m)", category: "decor", price: 600, rating: 4.1 },
+
+  // Accessories
+  { name: "SlimCraft Leather Wallet", category: "accessories", price: 1500, rating: 4.4 },
+  { name: "LunaGem Pendant", category: "accessories", price: 3000, rating: 4.7 },
+  { name: "ShadeX Polarized Glasses", category: "accessories", price: 1200, rating: 4.3 },
+  { name: "RetroCharm Pocket Watch", category: "accessories", price: 2000, rating: 4.5 },
+
+  // Books
+  { name: "Whispers of the Soul", category: "books", price: 350, rating: 4.8 },
+  { name: "Mastering Data Science", category: "books", price: 900, rating: 4.6 },
+  { name: "Galactic Horizons Vol. 1", category: "books", price: 400, rating: 4.5 },
+  { name: "Green Thumb Guide", category: "books", price: 250, rating: 4.2 },
+];
+
+
+    const filterCategory = document.getElementById("filterCategory");
+    const sortBy = document.getElementById("sortBy");
+    const productList = document.getElementById("productList");
+
+    function displayProducts(data) {
+      productList.innerHTML = data.map(p => `
+        <div>
+          <h3>${p.name}</h3>
+          <p>Category: ${p.category}</p>
+          <p>Price: ₹${p.price}</p>
+          <p>Rating: ${p.rating}</p>
+        </div>
+      `).join("");
+    }
+
+    function applyFilters() {
+      let filtered = [...products];
+      const category = filterCategory.value;
+      const sort = sortBy.value;
+
+      if (category) {
+        filtered = filtered.filter(p => p.category === category);
+      }
+
+      if (sort === "price") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sort === "rating") {
+        filtered.sort((a, b) => b.rating - a.rating);
+      }
+
+      displayProducts(filtered);
+    }
+
+    filterCategory.onchange = applyFilters;
+    sortBy.onchange = applyFilters;
+
+    window.onload = function () {
+      loadTasks();
+      displayProducts(products);
+    };
+  </script>
+
+</body>
+</html>
